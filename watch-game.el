@@ -20,6 +20,18 @@
 
 (require 'hi-lock)
 
+(defface watch-hi-brown-b
+    '((((min-colors 88)) (:weight bold :foreground "saddle brown"))
+      (t (:weight bold :foreground "saddle brown")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
+(defface watch-hi-black-b
+    '((((min-colors 88)) (:weight bold :foreground "black"))
+      (t (:weight bold :foreground "black")))
+  "Face for hi-lock mode."
+  :group 'hi-lock-faces)
+
 (defun watch (project-dir)
   "Watch the game currently specified in game-runner of PROJECT-DIR.
 
@@ -39,6 +51,10 @@ To watch two different bots play against each other, change the
       (read-only-mode -1)
       (hi-lock-mode 1)
       (font-lock-mode 1)
+      (font-lock-add-keywords nil
+                              '(("█"  . 'watch-hi-black-b)
+                                ("▓"  . 'watch-hi-brown-b)
+                                ("╠╣" . 'hi-red-b)))
       (kill-region (point-min) (point-max))
       (read-only-mode 1)
       (watch--read-print-loop))))
@@ -50,18 +66,6 @@ Starting round:"
 (defconst watch--end-round-token "=======================================
 Completed round:"
   "The token to scan for to determine the end of a round.")
-
-(defface watch-hi-brown-b
-    '((((min-colors 88)) (:weight bold :foreground "saddle brown"))
-      (t (:weight bold :foreground "saddle brown")))
-  "Face for hi-lock mode."
-  :group 'hi-lock-faces)
-
-(defface watch-hi-black-b
-    '((((min-colors 88)) (:weight bold :foreground "black"))
-      (t (:weight bold :foreground "black")))
-  "Face for hi-lock mode."
-  :group 'hi-lock-faces)
 
 (defun watch--read-print-loop ()
   "Watch the watch process and print whenever a new round starts."
@@ -79,10 +83,7 @@ Completed round:"
               (read-only-mode -1)
               (delete-region (point-min) (point-max))
               (insert next-output)
-              (highlight-regexp "█" 'watch-hi-black-b)
-              (highlight-regexp "▓" 'watch-hi-brown-b)
-              (highlight-regexp "╠╣" 'hi-red-b)
-              (font-lock-fontify-buffer nil)
+              (font-lock-ensure (point-min) (point-max))
               (read-only-mode 1)))
           (run-at-time 0.1 nil #'watch--read-print-loop))))))
 
