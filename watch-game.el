@@ -28,22 +28,22 @@
 (defvar watch--current-history-element-index nil
   "What point we're at in the history of outputs.")
 
-(define-minor-mode watch-game
-    "A minor mode for viewing Entelect Challenge replays."
-  nil nil watch-game-mode-map)
-
 (defvar watch-game-mode-map
     (let ((keymap (make-sparse-keymap)))
       (define-key keymap (kbd "p") #'watch-previous-state)
       (define-key keymap (kbd "n") #'watch-next-state)
       (define-key keymap (kbd "r") #'watch-resume-live)
-      ;; TODO: bind quit to q
+      (define-key keymap (kbd "q") #'watch-quit)
       keymap)
   "The keymap for watch.")
 
+(define-minor-mode watch-game
+    "A minor mode for viewing Entelect Challenge replays."
+  nil nil watch-game-mode-map)
+
 (defun watch--insert-into-watch-buffer (text)
   "Insert TEXT into the viewing buffer."
-  (progn
+  (save-excursion
     (switch-to-buffer watch-buffer-name)
     (read-only-mode -1)
     (delete-region (point-min) (point-max))
@@ -58,6 +58,17 @@
 (defun watch--prevent-over/underflow (i)
   "Produce an index I such that it's not below zero or greater than history length."
   (if (< i 1) 1 (if (>= i (length watch--previous-game-states)) (1- i) i)))
+
+(defun watch-quit ()
+  "Quit this watch session.
+
+If it's running from the console then quit Emacs too."
+  (interactive)
+  (progn
+    (kill-buffer watch--output-buffer-name)
+    (kill-buffer watch-buffer-name)
+    (when (null window-system)
+      (kill-emacs t))))
 
 (defun watch-previous-state ()
   "Move to the previous state."
