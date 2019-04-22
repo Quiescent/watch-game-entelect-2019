@@ -1,0 +1,25 @@
+* Introduction
+The Entelect challenge this year (2019) has a console runner.  It can
+be hard to follow the output of the runner because it just prints the
+entire history of the game into the console.  This project pages
+through the output so that you can see the game as though it were
+being rendered to the console rather than logged.
+
+* Requirements
+ - Emacs
+ - Bash
+
+* Quick Start
+Simply run ~./watch.sh <path-to-root-of-entelect-challenge-repo>~
+*from the root of this project* and it'll display the game in the
+console using the configuration set in the =game-runner= directory of
+the Entelect Challenge repo.  Change the configuration in that
+directory to change what game to play/watch.
+
+* Coming Soon (TM)
+
+** TODO Watch replays
+** TODO Scroll through history of game
+** TODO Render with images rather than text
+** TODO Implement error handling and user prompting
+** TODO Add support for running on the starter pack rather than the source repo
