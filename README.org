@@ -16,10 +16,23 @@ console using the configuration set in the =game-runner= directory of
 the Entelect Challenge repo.  Change the configuration in that
 directory to change what game to play/watch.
 
+* Features
+
+** History Scrolling
+You can scroll through the history of a game which is currently
+playing with the =n= (for next) and =p= (for previous) keys.  To
+resume the live game, you can hit =r=.
+
 * Coming Soon (TM)
 
 ** TODO Watch replays
-** TODO Scroll through history of game
+** DONE Scroll through history of game
+   CLOSED: [2019-04-22 Mon 13:08]
+   :LOGBOOK:
+   - CLOSING NOTE [2019-04-22 Mon 13:08] \\
+     You can now scroll through the history of a game with `n' and `p' and
+     then hit `r' to go back to watching the live game.
+   :END:
 ** TODO Render with images rather than text
 ** TODO Implement error handling and user prompting
 ** TODO Add support for running on the starter pack rather than the source repo
