@@ -106,6 +106,34 @@ If it's running from the console then quit Emacs too."
   "Face for hi-lock mode."
   :group 'hi-lock-faces)
 
+(defun watch-replay (directory)
+  "Watch the replay of match in DIRECTORY."
+  (interactive "DReplay directory: ")
+  (progn
+    (watch--setup-rendering-buffer)
+    (with-current-buffer (get-buffer-create watch--output-buffer-name)
+      (kill-region (point-min) (point-max))
+      (insert-file-contents (format "%s/match.log" directory)))
+    (watch--read-print-loop)))
+
+(defun watch--setup-rendering-buffer ()
+  "Setup (and switch to) the buffer in which we'll render the match."
+  (progn
+    (switch-to-buffer watch-buffer-name)
+    (read-only-mode -1)
+    (watch-game 1)
+    (hi-lock-mode 1)
+    (font-lock-mode 1)
+    (font-lock-add-keywords nil
+                            '(("█"  . 'watch-hi-black-b)
+                              ("▓"  . 'watch-hi-brown-b)
+                              ("╠╣" . 'hi-red-b)))
+    (kill-region (point-min) (point-max))
+    (setq watch--previous-game-states nil)
+    (setq watch--searching-through-history nil)
+    (setq watch--current-history-element-index 0)
+    (read-only-mode 1)))
+
 (defun watch (project-dir)
   "Watch the game currently specified in game-runner of PROJECT-DIR.
 
@@ -121,20 +149,7 @@ To watch two different bots play against each other, change the
                            watch--output-buffer-name
                            "make"
                            "run"))
-      (switch-to-buffer watch-buffer-name)
-      (read-only-mode -1)
-      (watch-game 1)
-      (hi-lock-mode 1)
-      (font-lock-mode 1)
-      (font-lock-add-keywords nil
-                              '(("█"  . 'watch-hi-black-b)
-                                ("▓"  . 'watch-hi-brown-b)
-                                ("╠╣" . 'hi-red-b)))
-      (kill-region (point-min) (point-max))
-      (setq watch--previous-game-states nil)
-      (setq watch--searching-through-history nil)
-      (setq watch--current-history-element-index 0)
-      (read-only-mode 1)
+      (watch--setup-rendering-buffer)
       (watch--read-print-loop))))
 
 (defconst watch--start-round-token "=======================================
