@@ -127,7 +127,8 @@ If it's running from the console then quit Emacs too."
     (font-lock-add-keywords nil
                             '(("█"  . 'watch-hi-black-b)
                               ("▓"  . 'watch-hi-brown-b)
-                              ("╠╣" . 'hi-red-b)))
+                              ("╠╣" . 'hi-red-b)
+                              ("XX" . 'hi-red-b)))
     (kill-region (point-min) (point-max))
     (setq watch--previous-game-states nil)
     (setq watch--searching-through-history nil)
