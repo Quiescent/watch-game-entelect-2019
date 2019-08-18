@@ -142,7 +142,7 @@ To watch two different bots play against each other, change the
   configuration in that directory."
   (interactive "D(defaults to project in current dir): ")
   (progn
-    (let ((default-directory (format "%sgame-runner"
+    (let ((default-directory (format "%s"
                                      (or project-dir
                                          (car (project-roots (project-current)))))))
       (setq watch--process
