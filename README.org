@@ -10,14 +10,15 @@ being rendered to the console rather than logged.
  - Bash
 
 * Quick Start
-Simply run ~./watch.sh <path-to-root-of-entelect-challenge-repo>~
+Simply run ~./watch.sh <path-to-root-of-entelect-challenge-repo>/game-runner~
 *from the root of this project* and it'll display the game in the
 console using the configuration set in the =game-runner= directory of
 the Entelect Challenge repo.  Change the configuration in that
 directory to change what game to play/watch.
 
 To watch a replay, run ~./watch-replay.sh <path-to-root-of-replay>~
-and it'll display the replay of the game.
+*from the root of this project* and it'll display the replay of the
+game.
 
 * Features
 
