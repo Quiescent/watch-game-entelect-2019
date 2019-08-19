@@ -127,7 +127,8 @@ If it's running from the console then quit Emacs too."
     (font-lock-add-keywords nil
                             '(("█"  . 'watch-hi-black-b)
                               ("▓"  . 'watch-hi-brown-b)
-                              ("╠╣" . 'hi-red-b)))
+                              ("╠╣" . 'hi-red-b)
+                              ("XX" . 'hi-red-b)))
     (kill-region (point-min) (point-max))
     (setq watch--previous-game-states nil)
     (setq watch--searching-through-history nil)
@@ -141,7 +142,7 @@ To watch two different bots play against each other, change the
   configuration in that directory."
   (interactive "D(defaults to project in current dir): ")
   (progn
-    (let ((default-directory (format "%sgame-runner"
+    (let ((default-directory (format "%s"
                                      (or project-dir
                                          (car (project-roots (project-current)))))))
       (setq watch--process

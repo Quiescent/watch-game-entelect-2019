@@ -16,6 +16,9 @@ console using the configuration set in the =game-runner= directory of
 the Entelect Challenge repo.  Change the configuration in that
 directory to change what game to play/watch.
 
+To watch a replay, run ~./watch-replay.sh <path-to-root-of-replay>~
+and it'll display the replay of the game.
+
 * Features
 
 ** History Scrolling
@@ -25,7 +28,7 @@ resume the live game, you can hit =r=.
 
 * Coming Soon (TM)
 
-** TODO Watch replays
+** DONE Watch replays
 ** DONE Scroll through history of game
    CLOSED: [2019-04-22 Mon 13:08]
    :LOGBOOK:
